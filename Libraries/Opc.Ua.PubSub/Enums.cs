@@ -410,13 +410,9 @@ namespace Opc.Ua.PubSub
         /// </summary>
         DataSetMessage = 0,
         /// <summary>
-        /// Discovery Request message
+        /// DataSetMetaData message
         /// </summary>
-        DiscoveryRequest = 4,
-        /// <summary>
-        /// Discovery Response message
-        /// </summary>
-        DiscoveryResponse = 8
+        DataSetMetaData = 4,
     }
  
 }
