@@ -281,6 +281,8 @@ namespace Quickstarts.ConsoleReferencePublisher
             pubSubConnection1.ConnectionProperties = mqttConfiguration.ConnectionProperties;
 
             #region Define WriterGroup1 - Json
+            string writerGroup1QueueName = "Json_WriterGroup_1";
+            string writerGroup1MetaData = "$Metadata";
             WriterGroupDataType writerGroup1 = new WriterGroupDataType();
             writerGroup1.Name = "WriterGroup 1";
             writerGroup1.Enabled = true;
@@ -299,7 +301,7 @@ namespace Quickstarts.ConsoleReferencePublisher
 
             writerGroup1.MessageSettings = new ExtensionObject(jsonMessageSettings);
             writerGroup1.TransportSettings = new ExtensionObject(new BrokerWriterGroupTransportDataType() {
-                QueueName = "Json_WriterGroup_1",
+                QueueName = writerGroup1QueueName,
             }
             );
 
@@ -321,6 +323,14 @@ namespace Quickstarts.ConsoleReferencePublisher
             };
 
             dataSetWriter1.MessageSettings = new ExtensionObject(jsonDataSetWriterMessage);
+
+            BrokerDataSetWriterTransportDataType jsonDataSetWriterTransport = new BrokerDataSetWriterTransportDataType() {
+                QueueName = writerGroup1QueueName,
+                MetaDataQueueName = $"{writerGroup1QueueName}/{writerGroup1MetaData}",
+                MetaDataUpdateTime = 10000
+            };
+            dataSetWriter1.TransportSettings = new ExtensionObject(jsonDataSetWriterTransport);
+
             writerGroup1.DataSetWriters.Add(dataSetWriter1);
 
             // Define DataSetWriter 'Simple' - Variant encoding
