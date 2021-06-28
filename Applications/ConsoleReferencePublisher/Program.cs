@@ -280,9 +280,11 @@ namespace Quickstarts.ConsoleReferencePublisher
             ITransportProtocolConfiguration mqttConfiguration = new MqttClientProtocolConfiguration(version: EnumMqttProtocolVersion.V500);
             pubSubConnection1.ConnectionProperties = mqttConfiguration.ConnectionProperties;
 
+            string brokerQueueName = "Json_WriterGroup_1";
+            string brokerMetaData = "$Metadata";
+
             #region Define WriterGroup1 - Json
-            string writerGroup1QueueName = "Json_WriterGroup_1";
-            string writerGroup1MetaData = "$Metadata";
+            
             WriterGroupDataType writerGroup1 = new WriterGroupDataType();
             writerGroup1.Name = "WriterGroup 1";
             writerGroup1.Enabled = true;
@@ -301,7 +303,7 @@ namespace Quickstarts.ConsoleReferencePublisher
 
             writerGroup1.MessageSettings = new ExtensionObject(jsonMessageSettings);
             writerGroup1.TransportSettings = new ExtensionObject(new BrokerWriterGroupTransportDataType() {
-                QueueName = writerGroup1QueueName,
+                QueueName = brokerQueueName,
             }
             );
 
@@ -325,8 +327,8 @@ namespace Quickstarts.ConsoleReferencePublisher
             dataSetWriter1.MessageSettings = new ExtensionObject(jsonDataSetWriterMessage);
 
             BrokerDataSetWriterTransportDataType jsonDataSetWriterTransport = new BrokerDataSetWriterTransportDataType() {
-                QueueName = writerGroup1QueueName,
-                MetaDataQueueName = $"{writerGroup1QueueName}/{writerGroup1MetaData}",
+                QueueName = brokerQueueName,
+                MetaDataQueueName = $"{brokerQueueName}/{brokerMetaData}",
                 MetaDataUpdateTime = 10000
             };
             dataSetWriter1.TransportSettings = new ExtensionObject(jsonDataSetWriterTransport);
@@ -349,6 +351,7 @@ namespace Quickstarts.ConsoleReferencePublisher
                 | JsonDataSetMessageContentMask.Timestamp),
             };
             dataSetWriter2.MessageSettings = new ExtensionObject(jsonDataSetWriterMessage);
+            dataSetWriter2.TransportSettings = new ExtensionObject(jsonDataSetWriterTransport);
             writerGroup1.DataSetWriters.Add(dataSetWriter2);
 
             pubSubConnection1.WriterGroups.Add(writerGroup1);
