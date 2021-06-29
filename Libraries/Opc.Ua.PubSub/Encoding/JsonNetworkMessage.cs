@@ -65,6 +65,7 @@ namespace Opc.Ua.PubSub.Encoding
         public JsonNetworkMessage(WriterGroupDataType writerGroupConfiguration, List<JsonDataSetMessage> jsonDataSetMessages)
             : base(writerGroupConfiguration, jsonDataSetMessages?.ConvertAll<UaDataSetMessage>(x=> (UaDataSetMessage)x) ?? new List<UaDataSetMessage>())
         {
+            MessageId = Guid.NewGuid().ToString();
             MessageType = kDataSetMessageType;
             DataSetClassId = string.Empty;
 
@@ -77,6 +78,7 @@ namespace Opc.Ua.PubSub.Encoding
         public JsonNetworkMessage(WriterGroupDataType writerGroupConfiguration, DataSetMetaDataType metadata)
             : base(writerGroupConfiguration, metadata)
         {
+            MessageId = Guid.NewGuid().ToString();
             MessageType = kMetaDataMessageType;
             DataSetClassId = string.Empty;
 
