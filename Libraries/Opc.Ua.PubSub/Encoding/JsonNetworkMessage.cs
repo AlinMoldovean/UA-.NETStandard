@@ -457,7 +457,7 @@ namespace Opc.Ua.PubSub.Encoding
                 }
                 else
                 {
-                    throw new Exception("The JSON MetaDataMessage cannot be encoded: The DataSetWriterId property is missing.");
+                    Utils.Trace("The JSON MetaDataMessage cannot be encoded: The DataSetWriterId property is missing for MessageId:{0}.", MessageId);
                 }
             }
         }
@@ -537,8 +537,10 @@ namespace Opc.Ua.PubSub.Encoding
                 }
                 else
                 {
-                    throw new Exception(String.Format("Invalid JSON MessageType: {0}. Supported values are {1} and {2}.",
-                        MessageType, kDataSetMessageType, kMetaDataMessageType));
+                    m_jsonNetworkMessageType = JSONNetworkMessageType.Invalid;
+
+                    Utils.Format("Invalid JSON MessageType: {0}. Supported values are {1} and {2}.",
+                        MessageType, kDataSetMessageType, kMetaDataMessageType);
                 }
             }
 
@@ -567,7 +569,7 @@ namespace Opc.Ua.PubSub.Encoding
                 }
                 else
                 {
-                    throw new Exception("The JSON MetaDataMessage cannot be decoded: The DataSetWriterId element is missing.");
+                    Utils.Trace("The JSON MetaDataMessage cannot be decoded: The DataSetWriterId property is missing for MessageId:{0}.", MessageId);
                 }
             }
         }
