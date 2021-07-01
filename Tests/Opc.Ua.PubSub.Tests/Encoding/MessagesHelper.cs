@@ -543,7 +543,7 @@ namespace Opc.Ua.PubSub.Tests.Encoding
                 (UInt32)jsonNetworkMessageContentMask,
                 (UInt32)jsonDataSetMessageContentMask,
                 dataSetFieldContentMask,
-                dataSetMetaDataArray, nameSpaceIndexForData);
+                dataSetMetaDataArray, nameSpaceIndexForData, metaDataUpdateTime);
         }
 
         /// <summary>
@@ -745,6 +745,9 @@ namespace Opc.Ua.PubSub.Tests.Encoding
             address.Url = addressUrl;
             pubSubConnection1.Address = new ExtensionObject(address);
 
+            string brokerQueueName = $"WriterGroup id:{writerGroupId}";
+            string brokerMetaData = "$Metadata";
+
             #region Define ReaderGroup1
             ReaderGroupDataType readerGroup1 = new ReaderGroupDataType();
             readerGroup1.Name = "ReaderGroup 1";
@@ -794,7 +797,7 @@ namespace Opc.Ua.PubSub.Tests.Encoding
                         };
                         dataSetReaderTransportSettings = new BrokerDataSetReaderTransportDataType()
                         {
-                            QueueName = "WriterGroup id:" + writerGroupId,
+                            QueueName = brokerQueueName,
                         };
                         break;
                     case Profiles.PubSubMqttJsonTransport:
@@ -805,7 +808,8 @@ namespace Opc.Ua.PubSub.Tests.Encoding
                         };
                         dataSetReaderTransportSettings = new BrokerDataSetReaderTransportDataType()
                         {
-                            QueueName = "WriterGroup id:" + writerGroupId,
+                            QueueName = brokerQueueName,
+                            MetaDataQueueName = $"{brokerQueueName}/{brokerMetaData}",
                         };
                         break;
                 }
