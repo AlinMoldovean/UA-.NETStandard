@@ -282,7 +282,7 @@ namespace Opc.Ua.PubSub.Transport
                 {
                     JsonNetworkMessage jsonNetworkMessage = new JsonNetworkMessage(writerGroupConfiguration, dataSetMessagesToUse);
                     jsonNetworkMessage.SetNetworkMessageContentMask((JsonNetworkMessageContentMask)jsonMessageSettings?.NetworkMessageContentMask);
-                    
+
                     // Network message header
                     jsonNetworkMessage.PublisherId = PubSubConnectionConfiguration.PublisherId.Value.ToString();
                     jsonNetworkMessage.WriterGroupId = writerGroupConfiguration.WriterGroupId;

@@ -46,7 +46,7 @@ namespace Opc.Ua.PubSub.Encoding
         private const string kFieldMetaData = "MetaData";
         private const string kFieldReplyTo = "ReplyTo";
 
-        private JSONNetworkMessageType m_jsonNetworkMessageType = JSONNetworkMessageType.DataSetMessage;
+        private JSONNetworkMessageType m_jsonNetworkMessageType;
         #endregion
 
         #region Constructor
@@ -451,6 +451,7 @@ namespace Opc.Ua.PubSub.Encoding
             else if (m_jsonNetworkMessageType == JSONNetworkMessageType.DataSetMetaData)
             {
                 jsonEncoder.WriteString(nameof(PublisherId), PublisherId);
+
                 if (DataSetWriterId != null)
                 {
                     jsonEncoder.WriteUInt16(nameof(DataSetWriterId), DataSetWriterId.Value);
