@@ -252,9 +252,10 @@ namespace Opc.Ua.PubSub.Tests.Encoding
             Assert.IsNotNull(uaNetworkMessages, "Json ua-data entries are missing from configuration!");
 
             // set DataSetClassId
+            string dataSetClassId = Guid.NewGuid().ToString();
             foreach (JsonNetworkMessage uaNetworkMessage in uaNetworkMessages)
             {
-                uaNetworkMessage.DataSetClassId = Guid.NewGuid().ToString();
+                uaNetworkMessage.DataSetClassId = dataSetClassId;
             }
 
             List<JsonNetworkMessage> uaMetaDataNetworkMessages = MessagesHelper.GetJsonUaMetaDataNetworkMessages(networkMessages.Cast<JsonNetworkMessage>().ToList());
