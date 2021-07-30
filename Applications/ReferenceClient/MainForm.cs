@@ -204,5 +204,54 @@ namespace Quickstarts.ReferenceClient
                 MessageBox.Show("Unable to launch help documentation. Error: " + ex.Message);
             }
         }
+
+        private void OkBTN_Click(object sender, EventArgs e)
+        {
+            if (m_session == null || m_session.Connected == false)
+            {
+                return;
+            }
+
+            try
+            {
+                // build a list of nodes to be read
+                ReadValueIdCollection nodesToRead = new ReadValueIdCollection()
+                {
+                    // Value of ServerStatus
+                    new ReadValueId() { NodeId = Variables.Server_ServerStatus, AttributeId = Attributes.Value },
+                    // BrowseName of ServerStatus_StartTime
+                    new ReadValueId() { NodeId = Variables.Server_ServerStatus_StartTime, AttributeId = Attributes.BrowseName },
+                    // Value of ServerStatus_StartTime
+                    new ReadValueId() { NodeId = Variables.Server_ServerStatus_StartTime, AttributeId = Attributes.Value }
+                };
+
+                // Read the node attributes
+
+                //**********************************
+                System.Diagnostics.Debug.WriteLine("Reading nodes... " + DateTime.Now);
+                //**********************************
+
+                // Call Read Service
+                m_session.Read(
+                    null,
+                    0,
+                    TimestampsToReturn.Both,
+                    nodesToRead,
+                    out DataValueCollection resultsValues,
+                    out DiagnosticInfoCollection diagnosticInfos);
+
+                //**********************************
+                System.Diagnostics.Debug.WriteLine("Reading nodes complete... " + DateTime.Now);
+                //**********************************
+
+            }
+            catch (Exception ex)
+            {
+                //**********************************
+                System.Diagnostics.Debug.WriteLine("Reading nodes error: " + ex.Message);
+                //**********************************
+
+            }
+        }
     }
 }

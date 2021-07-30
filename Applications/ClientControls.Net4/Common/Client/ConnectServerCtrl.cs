@@ -609,6 +609,11 @@ namespace Opc.Ua.Client.Controls
         /// </summary>
         private void Session_KeepAlive(Session session, KeepAliveEventArgs e)
         {
+
+            //*******************************
+            System.Diagnostics.Debug.WriteLine("Handles a keep alive event from a session : " + this.InvokeRequired);
+            //*******************************
+
             if (this.InvokeRequired)
             {
                 this.BeginInvoke(new KeepAliveEventHandler(Session_KeepAlive), session, e);

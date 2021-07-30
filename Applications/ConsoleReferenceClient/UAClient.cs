@@ -164,8 +164,6 @@ namespace Quickstarts.ConsoleReferenceClient
 
             try
             {
-                #region Read a node by calling the Read Service
-
                 // build a list of nodes to be read
                 ReadValueIdCollection nodesToRead = new ReadValueIdCollection()
                 {
@@ -180,6 +178,10 @@ namespace Quickstarts.ConsoleReferenceClient
                 // Read the node attributes
                 m_output.WriteLine("Reading nodes...");
 
+                //**********************************
+                System.Diagnostics.Debug.WriteLine("Reading nodes... " + DateTime.Now);
+                //**********************************
+
                 // Call Read Service
                 m_session.Read(
                     null,
@@ -192,23 +194,17 @@ namespace Quickstarts.ConsoleReferenceClient
                 // Validate the results
                 m_validateResponse(resultsValues, nodesToRead);
 
-                // Display the results.
-                foreach (DataValue result in resultsValues)
-                {
-                    m_output.WriteLine("Read Value = {0} , StatusCode = {1}", result.Value, result.StatusCode);
-                }
-                #endregion
+                //**********************************
+                System.Diagnostics.Debug.WriteLine("Reading nodes complete... " + DateTime.Now);
+                //**********************************
 
-                #region Read the Value attribute of a node by calling the Session.ReadValue method
-                // Read Server NamespaceArray
-                m_output.WriteLine("Reading Value of NamespaceArray node...");
-                DataValue namespaceArray = m_session.ReadValue(Variables.Server_NamespaceArray);
-                // Display the result
-                m_output.WriteLine($"NamespaceArray Value = {namespaceArray}");
-                #endregion
             }
             catch (Exception ex)
             {
+                //**********************************
+                System.Diagnostics.Debug.WriteLine("Reading nodes error: " + ex.Message);
+                //**********************************
+
                 // Log Error
                 m_output.WriteLine($"Read Nodes Error : {ex.Message}.");
             }

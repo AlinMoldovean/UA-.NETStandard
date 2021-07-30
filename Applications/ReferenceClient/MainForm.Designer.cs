@@ -70,9 +70,10 @@ namespace Quickstarts.ReferenceClient
             this.HelpMI = new System.Windows.Forms.ToolStripMenuItem();
             this.Help_ContentsMI = new System.Windows.Forms.ToolStripMenuItem();
             this.StatusBar = new System.Windows.Forms.StatusStrip();
+            this.BrowseCTRL = new Opc.Ua.Client.Controls.BrowseNodeCtrl();
             this.ConnectServerCTRL = new Opc.Ua.Client.Controls.ConnectServerCtrl();
-            this.BrowseCTRL = new BrowseNodeCtrl();
-            this.clientHeaderBranding1 = new HeaderBranding();
+            this.clientHeaderBranding1 = new Opc.Ua.Client.Controls.HeaderBranding();
+            this.OkBTN = new System.Windows.Forms.Button();
             this.MenuBar.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -93,13 +94,13 @@ namespace Quickstarts.ReferenceClient
             this.fileToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.exitToolStripMenuItem});
             this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
-            this.fileToolStripMenuItem.Size = new System.Drawing.Size(35, 20);
+            this.fileToolStripMenuItem.Size = new System.Drawing.Size(37, 20);
             this.fileToolStripMenuItem.Text = "&File";
             // 
             // exitToolStripMenuItem
             // 
             this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
-            this.exitToolStripMenuItem.Size = new System.Drawing.Size(92, 22);
+            this.exitToolStripMenuItem.Size = new System.Drawing.Size(93, 22);
             this.exitToolStripMenuItem.Text = "E&xit";
             this.exitToolStripMenuItem.Click += new System.EventHandler(this.ExitToolStripMenuItem_Click);
             // 
@@ -116,21 +117,21 @@ namespace Quickstarts.ReferenceClient
             // Server_DiscoverMI
             // 
             this.Server_DiscoverMI.Name = "Server_DiscoverMI";
-            this.Server_DiscoverMI.Size = new System.Drawing.Size(127, 22);
+            this.Server_DiscoverMI.Size = new System.Drawing.Size(133, 22);
             this.Server_DiscoverMI.Text = "Discover...";
             this.Server_DiscoverMI.Click += new System.EventHandler(this.Server_DiscoverMI_Click);
             // 
             // Server_ConnectMI
             // 
             this.Server_ConnectMI.Name = "Server_ConnectMI";
-            this.Server_ConnectMI.Size = new System.Drawing.Size(127, 22);
+            this.Server_ConnectMI.Size = new System.Drawing.Size(133, 22);
             this.Server_ConnectMI.Text = "Connect";
             this.Server_ConnectMI.Click += new System.EventHandler(this.Server_ConnectMI_Click);
             // 
             // Server_DisconnectMI
             // 
             this.Server_DisconnectMI.Name = "Server_DisconnectMI";
-            this.Server_DisconnectMI.Size = new System.Drawing.Size(127, 22);
+            this.Server_DisconnectMI.Size = new System.Drawing.Size(133, 22);
             this.Server_DisconnectMI.Text = "Disconnect";
             this.Server_DisconnectMI.Click += new System.EventHandler(this.Server_DisconnectMI_Click);
             // 
@@ -139,13 +140,13 @@ namespace Quickstarts.ReferenceClient
             this.HelpMI.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.Help_ContentsMI});
             this.HelpMI.Name = "HelpMI";
-            this.HelpMI.Size = new System.Drawing.Size(40, 20);
+            this.HelpMI.Size = new System.Drawing.Size(44, 20);
             this.HelpMI.Text = "Help";
             // 
             // Help_ContentsMI
             // 
             this.Help_ContentsMI.Name = "Help_ContentsMI";
-            this.Help_ContentsMI.Size = new System.Drawing.Size(152, 22);
+            this.Help_ContentsMI.Size = new System.Drawing.Size(122, 22);
             this.Help_ContentsMI.Text = "Contents";
             this.Help_ContentsMI.Click += new System.EventHandler(this.Help_ContentsMI_Click);
             // 
@@ -155,27 +156,6 @@ namespace Quickstarts.ReferenceClient
             this.StatusBar.Name = "StatusBar";
             this.StatusBar.Size = new System.Drawing.Size(884, 22);
             this.StatusBar.TabIndex = 2;
-            // 
-            // ConnectServerCTRL
-            // 
-            this.ConnectServerCTRL.Configuration = null;
-            this.ConnectServerCTRL.DisableDomainCheck = false;
-            this.ConnectServerCTRL.Dock = System.Windows.Forms.DockStyle.Top;
-            this.ConnectServerCTRL.Location = new System.Drawing.Point(0, 99);
-            this.ConnectServerCTRL.MaximumSize = new System.Drawing.Size(2048, 23);
-            this.ConnectServerCTRL.MinimumSize = new System.Drawing.Size(500, 23);
-            this.ConnectServerCTRL.Name = "ConnectServerCTRL";
-            this.ConnectServerCTRL.PreferredLocales = null;
-            this.ConnectServerCTRL.ServerUrl = "";
-            this.ConnectServerCTRL.SessionName = null;
-            this.ConnectServerCTRL.Size = new System.Drawing.Size(884, 23);
-            this.ConnectServerCTRL.StatusStrip = this.StatusBar;
-            this.ConnectServerCTRL.TabIndex = 6;
-            this.ConnectServerCTRL.UserIdentity = null;
-            this.ConnectServerCTRL.UseSecurity = true;
-            this.ConnectServerCTRL.ConnectComplete += new System.EventHandler(this.Server_ConnectComplete);
-            this.ConnectServerCTRL.ReconnectStarting += new System.EventHandler(this.Server_ReconnectStarting);
-            this.ConnectServerCTRL.ReconnectComplete += new System.EventHandler(this.Server_ReconnectComplete);
             // 
             // BrowseCTRL
             // 
@@ -188,8 +168,33 @@ namespace Quickstarts.ReferenceClient
             this.BrowseCTRL.TabIndex = 5;
             this.BrowseCTRL.View = null;
             // 
+            // ConnectServerCTRL
+            // 
+            this.ConnectServerCTRL.Configuration = null;
+            this.ConnectServerCTRL.DisableDomainCheck = false;
+            this.ConnectServerCTRL.DiscoverTimeout = 15000;
+            this.ConnectServerCTRL.Dock = System.Windows.Forms.DockStyle.Top;
+            this.ConnectServerCTRL.Location = new System.Drawing.Point(0, 99);
+            this.ConnectServerCTRL.MaximumSize = new System.Drawing.Size(2048, 23);
+            this.ConnectServerCTRL.MinimumSize = new System.Drawing.Size(500, 23);
+            this.ConnectServerCTRL.Name = "ConnectServerCTRL";
+            this.ConnectServerCTRL.PreferredLocales = null;
+            this.ConnectServerCTRL.ReconnectPeriod = 10;
+            this.ConnectServerCTRL.ServerUrl = "";
+            this.ConnectServerCTRL.SessionName = null;
+            this.ConnectServerCTRL.SessionTimeout = ((uint)(60000u));
+            this.ConnectServerCTRL.Size = new System.Drawing.Size(884, 23);
+            this.ConnectServerCTRL.StatusStrip = this.StatusBar;
+            this.ConnectServerCTRL.TabIndex = 6;
+            this.ConnectServerCTRL.UserIdentity = null;
+            this.ConnectServerCTRL.UseSecurity = true;
+            this.ConnectServerCTRL.ReconnectStarting += new System.EventHandler(this.Server_ReconnectStarting);
+            this.ConnectServerCTRL.ReconnectComplete += new System.EventHandler(this.Server_ReconnectComplete);
+            this.ConnectServerCTRL.ConnectComplete += new System.EventHandler(this.Server_ConnectComplete);
+            // 
             // clientHeaderBranding1
             // 
+            this.clientHeaderBranding1.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.clientHeaderBranding1.BackColor = System.Drawing.Color.White;
             this.clientHeaderBranding1.Dock = System.Windows.Forms.DockStyle.Top;
             this.clientHeaderBranding1.Location = new System.Drawing.Point(0, 24);
@@ -200,11 +205,23 @@ namespace Quickstarts.ReferenceClient
             this.clientHeaderBranding1.Size = new System.Drawing.Size(884, 75);
             this.clientHeaderBranding1.TabIndex = 7;
             // 
+            // OkBTN
+            // 
+            this.OkBTN.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.OkBTN.Location = new System.Drawing.Point(411, 481);
+            this.OkBTN.Name = "OkBTN";
+            this.OkBTN.Size = new System.Drawing.Size(75, 23);
+            this.OkBTN.TabIndex = 8;
+            this.OkBTN.Text = "ReadTest";
+            this.OkBTN.UseVisualStyleBackColor = true;
+            this.OkBTN.Click += new System.EventHandler(this.OkBTN_Click);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(884, 546);
+            this.Controls.Add(this.OkBTN);
             this.Controls.Add(this.BrowseCTRL);
             this.Controls.Add(this.ConnectServerCTRL);
             this.Controls.Add(this.StatusBar);
@@ -236,5 +253,6 @@ namespace Quickstarts.ReferenceClient
         private HeaderBranding clientHeaderBranding1;
         private System.Windows.Forms.ToolStripMenuItem fileToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem exitToolStripMenuItem;
+        private System.Windows.Forms.Button OkBTN;
     }
 }
